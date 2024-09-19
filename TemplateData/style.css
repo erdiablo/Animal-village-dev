@@ -46,9 +46,9 @@ body {
     max-width: 80%;
 }
 #unity-progress-bar-empty {
-    width: 80%;
+    width: 64%; /* Уменьшили ширину на 20% */
     height: 24px;
-    margin: 10px 20px 20px 10px;
+    margin: 10px auto 20px auto; /* Центрируем прогресс-бар */
     text-align: left;
     border: 1px solid white;
     padding: 2px;
