@@ -5,20 +5,12 @@ body { padding: 0; margin: 0 }
 #unity-canvas { background: #231F20 }
 .unity-mobile #unity-canvas { width: 100%; height: 100% }
 #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
-
-#unity-logo {
-  width: 640px;
-  height: 360px;
-  background: url('Logo.png') no-repeat center;
-  background-size: contain;
-  margin: 0 auto;
-}
-
-#unity-progress-bar-empty { /* ваш существующий код */ }
-#unity-progress-bar-full { /* ваш существующий код */ }
+#unity-logo { width: 320px; height: 180px; background: url('unity-logo-dark.png') no-repeat center }
+#unity-progress-bar-empty { width: 320px; height: 44px; margin-top: 10px; margin-left: 6.5px; background: url('progress-bar-empty-dark.png') no-repeat center }
+#unity-progress-bar-full { width: 0%; height: 44px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
 #unity-footer { position: relative }
 .unity-mobile #unity-footer { display: none }
-#unity-webgl-logo { /* ваш существующий код */ }
-#unity-build-title { /* ваш существующий код */ }
-#unity-fullscreen-button { /* ваш существующий код */ }
-#unity-warning { /* ваш существующий код */ }
+#unity-webgl-logo { float:left; width: 204px; height: 38px; background: url('webgl-logo.png') no-repeat center }
+#unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
+#unity-fullscreen-button { cursor:pointer; float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center }
+#unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
