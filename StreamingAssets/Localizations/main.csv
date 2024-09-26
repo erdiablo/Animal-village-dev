@@ -8,6 +8,7 @@ animal_farmer_name,Cool Rabbit,Кролик уровня
 animal_woodcutter_name,Cool Brown Beaver,Бобр уровня 
 animal_stats_basepower,Base Power,Сила Добычи
 ui_animal_confirm,CONFIRM,ОТЛИЧНО
+store_title,Store,Магазин
 tokenTypeGold,Gold,
 tokenTypeGem,Gem,
 rewardWindowTitle,Rewards,
@@ -93,9 +94,9 @@ cardBuildingIdleSlot,Additional slot,
 cardBuildingPassiveFullName,PASSIVE BUILDING,
 cardBuildingPassiveShortName,Building,
 cardBuildingPassiveNew,New building,
-hint0,Welcome,
-hint1,Beastville is a peaceful place,
-hint2,<color=orange>Open the gift </color> to see who is there!,
+hint0,Welcome,Привет!
+hint1,Beastville is a peaceful place,Биствилль классное место!
+hint2,<color=orange>Open the gift </color> to see who is there!,"<color=orange>Открой подарок </color> , чтобы увидеть кто там!"
 hint3,See the pond below? \n\n<color=orange>Drag the cat</color> over there to start fishing,
 hint4,Now wait a bit while cat catches all fish from pond...,
 hint5,<color=orange>Tap</color> to collect reward,
@@ -111,3 +112,5 @@ hint14,<color=orange>Collect the reward</color>\n\nСat can't fish again until y
 hint15,Now you know almost all about growing <color=orange>Beastville</color>!\n\nKeep it up!,
 hint16,You've got your first upgrade cards,
 hint17,<color=orange>Press this button</color> to look at them,
+miniGameWindowSell,Sell,Продать
+miniGameWindowSellDescription,You can serve the dish for {0} coins,Вы можете подать блюдо за {0} монет
