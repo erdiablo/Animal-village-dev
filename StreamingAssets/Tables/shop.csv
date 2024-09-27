@@ -1,0 +1,15 @@
+Section,,,
+Special,Name,Price,SmthgOther
+,SpecialOffer,500,777
+Chests,Name,,Price
+,MythicChest,,20
+,FooChest,,200
+,,,
+Boosters,Name,Value,Price
+,TimeBooster_S,60,20
+,TimeBooster_M,120,30
+,TimeBooster_L,300,60
+ResourceBoosters,Name,Value,Price
+,TimeBooster_S,60,20
+,TimeBooster_M,120,30
+,TimeBooster_L,300,60
