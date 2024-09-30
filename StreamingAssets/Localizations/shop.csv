@@ -9,4 +9,4 @@ shop_section_ResourceBoosters,Resource Boosters,Бустеры Ресурсов
 shop_item_MythicChest,Mythic Chest,Мифический сундук
 shop_item_TimeBooster_S,Time Booster S,Тайм Бустер М
 shop_next_time,Next time: {time},Через: {time}
-time_spanDaysHoursMinutes,{0:d\\d h\\h m\\m},{0:d\\д h\\ч m\\мин}
+time_spanDaysHoursMinutes,{0:d\\d h\\h m\\m},{0:d д h ч m мин}
