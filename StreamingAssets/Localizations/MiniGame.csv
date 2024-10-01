@@ -2,11 +2,12 @@
 LanguageTag,en,ru
 IsRightToLeft,,
 AbbreviationCode3,ENU,RUS
+miniGameHint0,Hello!,
 miniGameHint1,Use the ingredients to find the right order,Используй ингредиенты для поиска правильного порядка
 miniGameHint2,Correct place!,Правильное место!
 miniGameHint3,Wrong place!,Неправильное место!
-miniGameHint4,Find the right order and get an amazing reward!,Найдите правильный порядок и получите потрясающую награду!
-miniGameHint5,Every ingredient used spends attempts,Каждый использованный ингредиент тратит попытки
+miniGameHint4,Every ingredient used spends attempts,Каждый использованный ингредиент тратит попытки
+miniGameHint5,Find the right order and get an amazing reward!,Найдите правильный порядок и получите потрясающую награду!
 miniGameHint6,You already tried this order!,Вы уже пробовали этот порядок!
 miniGameDishCompletedWindowDescription,You can serve the dish for {0} coins,Вы можете подать блюдо за {0} монет
 miniGameDishCompletedWindowSell,Sell,Продать

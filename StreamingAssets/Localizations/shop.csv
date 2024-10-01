@@ -9,4 +9,10 @@ shop_section_ResourceBoosters,Resource Boosters,Бустеры Ресурсов
 shop_item_MythicChest,Mythic Chest,Мифический сундук
 shop_item_TimeBooster_S,Time Booster S,Тайм Бустер М
 shop_next_time,Next time: {time},Через: {time}
-time_spanDaysHoursMinutes,{0:d\\d h\\h m\\m},{0:d д h ч m мин}
+time_spanDaysHoursMinutes,{0:d\\d h\\h m\\m},{0:d\\д h\\ч m\\мин}
+dailySpin_title,Daily Spin,Спин дня
+dailySpin_subtitle,You can spin the roulette every day for free!,Вы можете вращать рулетку каждый день бесплатно!
+dailySpin_button_daily,Daily,
+dailySpin_button_free,Free,
+dailySpin_button_watchToSpin,Watch to spin,
+dailySpin_button_tries,{current}/{total},{current}/{total}
