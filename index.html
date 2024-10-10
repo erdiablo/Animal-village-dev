@@ -17,15 +17,20 @@
             overflow: hidden;
         }
         #unity-container {
-            position: absolute;
             width: 100%;
             height: 100%;
+            position: absolute;
             left: 0;
             top: 0;
         }
         #unity-canvas {
             width: 100%;
             height: 100%;
+        }
+        #unity-loading-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
         }
     </style>
 </head>
@@ -41,83 +46,71 @@
     <div id="unity-warning"> </div>
 </div>
 <script>
-    // Ваш существующий код
-    var container = document.querySelector("#unity-container");
-    var canvas = document.querySelector("#unity-canvas");
-    var loadingBar = document.querySelector("#unity-loading-bar");
-    var progressBarFull = document.querySelector("#unity-progress-bar-full");
-    var warningBanner = document.querySelector("#unity-warning");
+    document.addEventListener('DOMContentLoaded', function() {
+        // Проверяем доступность Telegram WebApp
+        if (window.Telegram && window.Telegram.WebApp) {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+            console.log("Telegram WebApp доступен и методы вызваны.");
+        } else {
+            console.warn("Telegram WebApp не доступен.");
+        }
 
-    function unityShowBanner(msg, type) {
-        // ...
-    }
-    
-    var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/Animal village build.loader.js";
-    var config = {
-        dataUrl: buildUrl + "/Animal village build.data",
-        frameworkUrl: buildUrl + "/Animal village build.framework.js",
-        codeUrl: buildUrl + "/Animal village build.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "Animal Village",
-        productVersion: "1.0",
-        showBanner: unityShowBanner,
-    };
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector("#unity-progress-bar-full");
+        var warningBanner = document.querySelector("#unity-warning");
 
-    // Проверяем, что Telegram WebApp доступен
-    if (window.Telegram && window.Telegram.WebApp) {
-        Telegram.WebApp.ready();
+        function unityShowBanner(msg, type) {
+            // Ваш существующий код для отображения предупреждений
+        }
+        
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/Animal village build.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/Animal village build.data",
+            frameworkUrl: buildUrl + "/Animal village build.framework.js",
+            codeUrl: buildUrl + "/Animal village build.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "Animal Village",
+            productVersion: "1.0",
+            showBanner: unityShowBanner,
+        };
 
-        // Расширяем мини-приложение на весь экран
-        Telegram.WebApp.expand();
-
-        // Убираем тень (если есть)
-        Telegram.WebApp.setBackgroundColor("bg_color");
-    } else {
-        console.warn("Telegram WebApp не доступен.");
-    }
-
-    // Настройка размеров для мобильных устройств
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    if (isMobile) {
+        // Настройка мета-тега viewport
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=no';
         document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
-    }
 
-    loadingBar.style.display = "block";
+        loadingBar.style.display = "block";
 
-    var unityInstance = null;
-    var script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-            progressBarFull.style.width = 100 * progress + "%";
-        }).then((instance) => {
-            unityInstance = instance;
-            loadingBar.style.display = "none";
+        var unityInstance = null;
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((instance) => {
+                unityInstance = instance;
+                loadingBar.style.display = "none";
+                console.log("unityInstance is running!");
 
-            console.log("unityInstance is running!");
+                // Если нужно, вызываем функцию получения данных пользователя
+                // GetTelegramUserData();
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
 
-            // Если нужно, вызываем функцию получения данных пользователя
-            // GetTelegramUserData();
-
-        }).catch((message) => {
-            alert(message);
-        });
-    };
-    document.body.appendChild(script);
-
-    // Функция для получения данных пользователя из Telegram WebApp и передачи их в Unity
-    function GetTelegramUserData() {
-        // ...
-    }
-
+        // Функция для получения данных пользователя из Telegram WebApp и передачи их в Unity
+        function GetTelegramUserData() {
+            // Ваш существующий код
+        }
+    });
 </script>
 </body>
 </html>
