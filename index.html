@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://telegram.org; connect-src 'self' https://api.gameanalytics.com https://telemetry.gameanalytics.com; script-src 'self' https://telegram.org https://cdn.gameanalytics.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://telegram.org; connect-src 'self' https://api.gameanalytics.com https://telemetry.gameanalytics.com ws://37.48.105.196:5001; script-src 'self' https://telegram.org https://cdn.gameanalytics.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
     <title>Unity WebGL Player | Animal Village</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
 
     <!-- Подключение кастомного шрифта -->
     <style>
-        /*@font-face {
+        @font-face {
             font-family: 'Avenir';
             src: url('fonts/Avenir.woff2') format('woff2'),
                  url('fonts/Avenir.woff') format('woff');
             font-weight: normal;
             font-style: normal;
-        }*/
+        }
 
         .modal {
             display: none;
@@ -39,7 +39,7 @@
         }
 
         .modal-text {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Avenir', sans-serif;
             color: #333;
             font-size: 16px;
             text-align: center;
@@ -108,6 +108,7 @@
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
     //var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+    
     var warningBanner = document.querySelector("#unity-warning");
 
     // Shows a temporary message banner/ribbon for a few seconds, or
