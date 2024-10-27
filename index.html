@@ -93,14 +93,6 @@
         </div>
     </div>
     <div id="unity-warning"> </div>
-<!--    <div id="unity-footer">-->
-<!--        <div id="unity-webgl-logo"></div>-->
-<!--        <div id="unity-fullscreen-button"></div>-->
-<!--        #if SHOW_DIAGNOSTICS-->
-<!--        <img id="diagnostics-icon" src="TemplateData/webmemd-icon.png">-->
-<!--        #endif-->
-<!--        <div id="unity-build-title">Animal Village</div>-->
-<!--    </div>-->
 </div>
 <script>
 
@@ -108,16 +100,9 @@
     var canvas = document.querySelector("#unity-canvas");
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
-    //var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     
     var warningBanner = document.querySelector("#unity-warning");
 
-    // Shows a temporary message banner/ribbon for a few seconds, or
-    // a permanent error message on top of the canvas if type=='error'.
-    // If type=='warning', a yellow highlight color is used.
-    // Modify or remove this function to customize the visually presented
-    // way that non-critical warnings and error messages are presented to the
-    // user.
     function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
             warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -139,47 +124,27 @@
     var buildUrl = "Build";
     var loaderUrl = buildUrl + "/a0eb54968f12b724932ff61ec1f2137c.loader.js";
     var config = {
-        dataUrl: buildUrl + "/681e000b0549be927d44808a5d72431d.data",
+        dataUrl: buildUrl + "/7ee13342fdc29ba19616d88f1e65d0ac.data",
         frameworkUrl: buildUrl + "/23c5d381433f8aad92e3f6b6db9782ee.framework.js",
-        codeUrl: buildUrl + "/00f97b5ac0c36bd13359ee1e134a59ec.wasm",
+        codeUrl: buildUrl + "/823cb7ddc0addf70ecf08623fd5996c1.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
-    productName: "Animal Village",
-    productVersion: "1.0",
-    showBanner: unityShowBanner,
+        productName: "Animal Village",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
     };
 
-    // By default, Unity keeps WebGL canvas render target size matched with
-    // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-    // Set this to false if you want to decouple this synchronization from
-    // happening inside the engine, and you would instead like to size up
-    // the canvas DOM size and WebGL render target sizes yourself.
-    // config.matchWebGLToCanvasSize = false;
-
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
         container.className = "unity-mobile";
         canvas.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-
-    }
-    else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
+    } else {
         canvas.style.width = "100%";
         canvas.style.height = "100%";
     }
-
-
 
     loadingBar.style.display = "block";
 
@@ -194,9 +159,6 @@
             loadingBar.style.display = "none";
 
             console.log("unityInstance is running!");
-            // fullscreenButton.onclick = () => {
-            //     unityInstance.SetFullscreen(1);
-            // };
         }).catch((message) => {
             alert(message);
         });
@@ -204,22 +166,30 @@
 
     document.body.appendChild(script);
 
-    // Показ модалки через 5 секунд
+    // Функция для разворачивания WebApp на весь экран
+    function expandWebApp() {
+        if (window.Telegram && window.Telegram.WebApp) {
+            Telegram.WebApp.expand();
+        }
+    }
+
+    window.onload = function() {
+        // Разворачиваем WebApp сразу при загрузке
+        expandWebApp();
+
+        // Показываем модалку через 5 секунд
+        setTimeout(showCookieConsent, 5000); // Задержка 5 секунд
+    };
+
     function showCookieConsent() {
         document.getElementById("cookieConsent").style.display = "block";
     }
 
-    window.onload = function() {
-        setTimeout(showCookieConsent, 5000); // Задержка 5 секунд
-    };
-
-    // Функция для инициализации GameAnalytics после согласия
     function acceptCookies() {
         document.getElementById("cookieConsent").style.display = "none";
         initializeGameAnalytics();
     }
 
-    // Инициализация GameAnalytics
     function initializeGameAnalytics() {
         var script = document.createElement("script");
         script.src = "https://cdn.gameanalytics.com/analytics.js";
@@ -233,8 +203,6 @@
         document.body.appendChild(script);
     }
 
-
-    // Функция для получения данных пользователя из Telegram WebApp и передачи их в Unity
     function GetTelegramUserData() {
         try {
             if (window.Telegram && window.Telegram.WebApp) {
@@ -242,15 +210,12 @@
                 const authDate = Telegram.WebApp.initDataUnsafe.auth_date;
                 const userHash = Telegram.WebApp.initDataUnsafe.hash;
 
-                // If user data is available, fill the userData object
                 if (user) {
                     const userData = {
                         ...user,
                         auth_date: authDate,
                         hash: userHash
                     };
-                    
-                    // Send the user data (or error) to Unity
                     unityInstance.SendMessage('[Singleton] WebGLHandler', 'OnReceiveUserData', JSON.stringify(userData));
                 } else {
                     unityInstance.SendMessage('[Singleton] WebGLHandler', 'OnUserDataUnavailable', "Telegram.WebApp.initDataUnsafe.user is null!");
