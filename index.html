@@ -120,13 +120,58 @@
         }
         updateBannerVisibility();
     }
-    
+
+    // Функция для сохранения данных в Local Storage
+    function setLocalStorage(name, value) {
+        localStorage.setItem(name, value);
+    }
+
+    // Функция для получения данных из Local Storage
+    function getLocalStorage(name) {
+        return localStorage.getItem(name);
+    }
+
+    // Функция для сохранения cookies
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Функция для получения cookies
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Проверяем наличие согласия на использование cookies и Local Storage
+    function checkCookieConsent() {
+        var consent = getLocalStorage("cookieConsent") || getCookie("cookieConsent");
+        if (consent === "true") {
+            // Если согласие уже получено, инициализируем аналитику
+            initializeGameAnalytics();
+        } else {
+            // Если согласия нет, показываем модалку
+            showCookieConsent();
+        }
+    }
+
     var buildUrl = "Build";
     var loaderUrl = buildUrl + "/a0eb54968f12b724932ff61ec1f2137c.loader.js";
     var config = {
-        dataUrl: buildUrl + "/7ee13342fdc29ba19616d88f1e65d0ac.data",
-        frameworkUrl: buildUrl + "/23c5d381433f8aad92e3f6b6db9782ee.framework.js",
-        codeUrl: buildUrl + "/823cb7ddc0addf70ecf08623fd5996c1.wasm",
+        dataUrl: buildUrl + "/987388009d92fd733e0591c2c8670ca7.data",
+        frameworkUrl: buildUrl + "/f00216d786824639386ef51d507dceb9.framework.js",
+        codeUrl: buildUrl + "/89a81811a0c75da60b9f9f5d768b58a1.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Animal Village",
@@ -177,8 +222,8 @@
         // Разворачиваем WebApp сразу при загрузке
         expandWebApp();
 
-        // Показываем модалку через 5 секунд
-        setTimeout(showCookieConsent, 5000); // Задержка 5 секунд
+        // Проверяем, нужно ли показывать модалку
+        checkCookieConsent();
     };
 
     function showCookieConsent() {
@@ -187,9 +232,16 @@
 
     function acceptCookies() {
         document.getElementById("cookieConsent").style.display = "none";
+        
+        // Сохраняем согласие в Local Storage и cookies
+        setLocalStorage("cookieConsent", "true");
+        setCookie("cookieConsent", "true", 365); // Сохраняем на 1 год
+
+        // Инициализируем аналитику
         initializeGameAnalytics();
     }
 
+    // Инициализация GameAnalytics
     function initializeGameAnalytics() {
         var script = document.createElement("script");
         script.src = "https://cdn.gameanalytics.com/analytics.js";
@@ -203,6 +255,7 @@
         document.body.appendChild(script);
     }
 
+    // Функция для получения данных пользователя из Telegram WebApp и передачи их в Unity
     function GetTelegramUserData() {
         try {
             if (window.Telegram && window.Telegram.WebApp) {
@@ -210,12 +263,15 @@
                 const authDate = Telegram.WebApp.initDataUnsafe.auth_date;
                 const userHash = Telegram.WebApp.initDataUnsafe.hash;
 
+                // If user data is available, fill the userData object
                 if (user) {
                     const userData = {
                         ...user,
                         auth_date: authDate,
                         hash: userHash
                     };
+                    
+                    // Send the user data (or error) to Unity
                     unityInstance.SendMessage('[Singleton] WebGLHandler', 'OnReceiveUserData', JSON.stringify(userData));
                 } else {
                     unityInstance.SendMessage('[Singleton] WebGLHandler', 'OnUserDataUnavailable', "Telegram.WebApp.initDataUnsafe.user is null!");
